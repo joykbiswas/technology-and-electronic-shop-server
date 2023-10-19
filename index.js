@@ -47,6 +47,13 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/phone/:brandname',async(req,res) =>{
+        const cursor = phoneCollection.find({ brandName : req.params.brandname });
+        const result =await cursor.toArray()
+        res.send(result);
+    })
+ 
+    
 
 
 
