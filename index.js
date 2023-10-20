@@ -54,6 +54,34 @@ async function run() {
     })
  
     
+    // update 
+    app.get('/phone/brandname/:id', async(req,res) =>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await phoneCollection.findOne(query);
+      res.send(result)
+    })
+
+    app.put('/phone/brandname/:id',async(req,res) =>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const options = {upsert: true};
+      const updateProduct = req.body;
+      const Product={
+        $set:{
+          image: updateProduct.image,
+          name: updateProduct.name,
+          brandName: updateProduct.brandName,
+          type: updateProduct.type,
+          price: updateProduct.price,
+          description: updateProduct.description,
+          rating: updateProduct.rating
+        }
+      }
+      const result = await phoneCollection.updateOne(filter,Product,options)
+      res.send(result)
+    })
+    
 
 
 
